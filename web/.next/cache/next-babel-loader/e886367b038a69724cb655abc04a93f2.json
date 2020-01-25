@@ -1,0 +1,1 @@
+{"ast":null,"code":"var __jsx = React.createElement;\nimport React from 'react';\n\nvar Nav = function Nav() {\n  return __jsx(\"div\", null, \"This is the navbar\");\n};\n\nexport default Nav;","map":null,"metadata":{},"sourceType":"module"}
