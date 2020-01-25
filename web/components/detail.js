@@ -89,7 +89,7 @@ const Detail = () => {
                                         <i className="fs-12 fa fa-minus" aria-hidden="true"></i>
                                     </button>
 
-                                    <input className="size8 m-text18 t-center num-product" type="number" name="num-product" value="1" />
+                                    <input className="size8 m-text18 t-center num-product" type="number" name="num-product" defaultValue="1" />
 
                                     <button className="btn-num-product-up color1 flex-c-m size7 bg8 eff2">
                                         <i className="fs-12 fa fa-plus" aria-hidden="true"></i>

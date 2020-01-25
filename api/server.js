@@ -1,12 +1,14 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const request = require("request");
+const cors = require('cors');
 
 const app = express();
 const port = 5555;
 const apiUrl = 'https://next.json-generator.com/api/json/get/EkzBIUWNL';
 
 app.use(bodyParser.json());
+app.use(cors());
 
 // GetMany
 app.get("/api/getmany", (req, res) => {
