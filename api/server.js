@@ -9,16 +9,16 @@ const apiUrl = 'https://next.json-generator.com/api/json/get/EkzBIUWNL';
 app.use(bodyParser.json());
 
 // GetMany
-app.get("/getmany", (req, res) => {
-    console.log("GET GetMany");
+app.get("/api/getmany", (req, res) => {
+    console.log("GET Many");
     apiCall(apiUrl)
         .then(response => res.json(response))
         .catch(error => res.status(500).send(error));
 });
 
 // GetSingle
-app.get("/getsingle/:id", (req, res) => {
-    console.log("GET GetSingle");
+app.get("/api/getsingle/:id", (req, res) => {
+    console.log(`GET Single ${req.params.id}`);
     apiCall(apiUrl)
         .then(response => res.json(response[req.params.id]))
         .catch(error => res.status(500).send(error));
