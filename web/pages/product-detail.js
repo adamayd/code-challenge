@@ -11,7 +11,7 @@ const HomePage = ({ productId = 0 }) => {
     const API_URL = 'http://localhost:5555/api/getsingle/';
 
     useEffect(() => {
-        console.log("before the render in index");
+        console.log("before the render in detail");
         getSingleProduct();
     },[])
 

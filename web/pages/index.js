@@ -10,7 +10,7 @@ const HomePage = () => {
     const API_URL = 'http://localhost:5555/api/getmany';
 
     useEffect(() => {
-        console.log("before the render in detail");
+        console.log("before the render in index");
         getProducts();
     },[])
 
