@@ -1,31 +1,66 @@
-# code-challenge
+# Whitebox Code Challenge
 
-### Welcome to the Whitebox Code Challenge!
+The original README.md is now [INSTRUCTIONS.md](./INSTRUCTIONS.md)
 
-In this repo, you are given an HTML template for an e-commerce store. The store has only two pages: A main products list page (`product.html`), and a single product detail page (`product-detail.html`). Both pages contain all the HTML and CSS needed for this project and you can focus solely on the Javascript side of this challenge.
+## Installing the project
 
-Your goal, is to...
+This project is setup with a separate API server in the `api` directory and a separate web server in the `web` directory.  Start by running 
 
-1. Build a NodeJS server to serve some JSON data.
-2. Wire up both HTML pages to your new server.
+```yarn```
 
-You may obtain the JSON data by using this url directly in your NodeJS Server code:
-https://next.json-generator.com/api/json/get/EkzBIUWNL
+or 
 
-### More specifically we are looking for you to meet the following requirements:
+```npm install```
 
-1. Create a NodeJS Server that has 2 endpoints. GetMany should return the entire list of fake products. GetSingle should accept an ID, and return just that 1 product.
+in each respective library to pull down the project dependencies.  
 
-2. Create an SPA which wires up the static HTML given in the repo (You can use (or not) any framework you are comfortable with).
+## Starting the project
 
-3. "Wire up" includes any search, sort, or filters you see on the page.
+Start the API server first with 
 
-4. The SPA should have 2 pages, a list all products, and an individual product page. Both HTML templates are provided.
+```
+yarn start
+```
 
-5. Delivery should be a separate github repo on your own account.
+The API server will run on `http://localhost:5555`.
 
-### Tips
-- You should not need to modify the CSS.
-- For experienced developers we have seen this challenge take less than an hour. For new developers we have seen this challenge take up to four hours.
-- Let me know if you have any questions or things you want clarified.
-- We are looking for your ability to use Javascript, your code style and structure, and your ability to follow the technical requirements listed in this readme.
+Now build the web server with
+
+```
+yarn build
+```
+
+then start the web server with
+
+```
+yarn start
+```
+
+The web server will run on `http://localhost:3000`.  Navigate to that address in your browser to view the site.
+
+## Items completed
+
+* Built a NodeJS server to serve JSON data from the provided json-generator.
+* Wired up the two HTML pages to the NodeJS server by way of converting HTML to JSX for use in React.
+
+### More Specifically
+
+1. The NodeJS server serves all the products at the /api/getmany route and the single product information at the /api/getsingle/:guid route.
+
+2. Created SPA using React and converted the HMTL to JSX in components.
+
+3. "Wired up" the dropdown for sorts options (minus popularity), dropdown for price bracket, price range slider filter, and search box that searches on the search term in name, about/desc, and tags. Also wired up some smaller items like results number and breadcrumb name on product details.  I also wired up the currency dropdown on both pages, but without going down the rabbit hole of global state, it does not persist between pages.
+
+4. The SPA does have 2 pages, per the HTML clicking the name of the product, takes you to the product detail page.  Clicking the image does not.
+
+5. Delivery is here!
+
+## Thoughts
+
+* I did need to modifiy the CSS in two places.  One was for an image path and the second was for a missing parameter on line 1110 of main.css
+
+* This did take me longer than average, but I had to split the time I was working on this and switched from CRA to Next half way through.
+
+* This was a great challenge and was easy to fall down the rabbit hole when wiring things up.  Somethings I wired up that weren't required to just help me debug quicker.
+
+* Thanks for creating this.  I had a blast!
