@@ -1,4 +1,5 @@
 import React, { useState, useEffect} from 'react';
+import Head from 'next/head';
 import Header from '../components/header';
 import Title from '../components/title';
 import Content from '../components/content';
@@ -7,19 +8,26 @@ import Footer from '../components/footer';
 const HomePage = () => {
 
     const [products, setProducts] = useState();
+    const [monetaryModifier, setMonetaryModifier] = useState(1.0);
     const API_URL = 'http://localhost:5555/api/getmany';
 
     useEffect(() => {
-        console.log("before the render in index");
         getProducts();
     },[])
 
     const getProducts = async () => {
-        // fetch
         const response = await fetchProducts();
-        console.log(response);
         setProducts(response);
-        // format
+    }
+
+    const monetaryUnit = (ev) => {
+        switch(ev.target.value) {
+            case "eur":
+                setMonetaryModifier(0.91);
+                break;
+            default: 
+                setMonetaryModifier(1.0);
+        }    
     }
 
     const fetchProducts = async () => {
@@ -37,9 +45,14 @@ const HomePage = () => {
 
     return (
         <>
-            <Header/>
+            <Head><title>Product</title></Head>
+            <Header monetaryUnit={monetaryUnit}/>
             <Title />
-            <Content products={products}/>
+            {products && <Content 
+                unsortedProducts={products} 
+                getProducts={getProducts} 
+                monetaryModifier={monetaryModifier}
+            />}
             <Footer />
         </>
     )

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Detail = () => {
+const Detail = ({ singleProduct, monetaryModifier }) => {
     return (
         <div className="container bgwhite p-t-35 p-b-80">
             <div className="flex-w flex-sb">
@@ -9,7 +9,7 @@ const Detail = () => {
 
                         <div className="item-slick3 main" data-thumb="images/thumb-item-01.jpg">
                             <div className="wrap-pic-w">
-                                <img src="images/product-detail-01.jpg" alt="IMG-PRODUCT" />
+                                <img src={singleProduct.image} alt="IMG-PRODUCT" />
                             </div>
                         </div>
 
@@ -36,17 +36,11 @@ const Detail = () => {
                 </div>
 
                 <div className="w-size14 p-t-30 respon5">
-                    <h4 className="product-detail-name m-text16 p-b-13">
-                        Boxy T-Shirt with Roll Sleeve Detail
-				</h4>
+                    <h4 className="product-detail-name m-text16 p-b-13">{singleProduct.name}</h4>
 
-                    <span className="m-text17">
-                        $22
-				</span>
+                    <span className="m-text17">{(singleProduct.price * monetaryModifier).toFixed(2)}</span>
 
-                    <p className="s-text8 p-t-10">
-                        Nulla eget sem vitae eros pharetra viverra. Nam vitae luctus ligula. Mauris consequat ornare feugiat.
-				</p>
+                    <p className="s-text8 p-t-10">{singleProduct.about}</p>
 
                     {/*<!--  -->*/}
                     <div className="p-t-33 p-b-60">
@@ -108,7 +102,12 @@ const Detail = () => {
 
                     <div className="p-b-45">
                         <span className="s-text8 m-r-35">SKU: MUG-01</span>
-                        <span className="s-text8">Categories: Mug, Design</span>
+                        <span className="s-text8">Categories: {singleProduct.tags.map((tag, idx) => {
+                            return idx == singleProduct.tags.length - 1
+                                ? tag
+                                : `${tag}, `
+                        })}
+                        </span>
                     </div>
 
                     {/*<!--  -->*/}

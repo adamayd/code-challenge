@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Breadcrumbs = () => {
+const Breadcrumbs = ({ crumb }) => {
     return (
         <div className="bread-crumb bgwhite flex-w p-l-52 p-r-15 p-t-30 p-l-15-sm">
             <a href="index.html" className="s-text16">
@@ -19,7 +19,7 @@ const Breadcrumbs = () => {
             </a>
 
             <span className="s-text17">
-                Boxy T-Shirt with Roll Sleeve Detail
+                {crumb}
 		    </span>
         </div>
     )

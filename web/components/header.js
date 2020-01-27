@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Header = () => {
+const Header = ({ monetaryUnit }) => {
     return (
         <header className="header1">
             {/*<!-- Header desktop -->*/}
@@ -24,9 +24,9 @@ const Header = () => {
                         </span>
 
                         <div className="topbar-language rs1-select2">
-                            <select className="selection-1" name="time">
-                                <option>USD</option>
-                                <option>EUR</option>
+                            <select className="selection-1" name="time" onChange={monetaryUnit}>
+                                <option value="usd">USD</option>
+                                <option value="eur">EUR</option>
                             </select>
                         </div>
                     </div>

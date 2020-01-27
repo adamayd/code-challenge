@@ -22,7 +22,7 @@ app.get("/api/getmany", (req, res) => {
 app.get("/api/getsingle/:id", (req, res) => {
     console.log(`GET Single ${req.params.id}`);
     apiCall(apiUrl)
-        .then(response => res.json(response[req.params.id]))
+        .then(response => res.json(response.find(product => product.guid === req.params.id)))
         .catch(error => res.status(500).send(error));
 });
 

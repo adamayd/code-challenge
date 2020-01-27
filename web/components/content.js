@@ -1,7 +1,110 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Product from './product';
 
-const Content = () => {
+const Content = ({ unsortedProducts, getProducts, monetaryModifier }) => {
+
+    const [priceRange, setPriceRange] = useState([0, 0]);
+    const [products, setProducts] = useState(unsortedProducts);
+    const [priceRangeFilter, setPriceRangeFilter] = useState(0);
+    const [searchTerm, setSearchTerm] = useState("");
+
+    useEffect(() => {
+        getPriceRange()
+    }, [])
+
+    const getPriceRange = () => {
+        const prices = products.map(product => product.price).sort((a, b) => a - b)
+        setPriceRange([parseFloat(prices[0]), parseFloat(prices[prices.length - 1])])
+    }
+
+    const handleOptionSort = (ev) => {
+        switch (ev.target.value) {
+            case "asc":
+                sortByPriceDirection(true);
+                break;
+            case "desc":
+                sortByPriceDirection(false);
+                break;
+            case "pop":
+                console.log("Sort By Popularity");
+                break;
+            default:
+                getProducts();
+                setProducts(unsortedProducts);
+        }
+    }
+
+    const handlePriceSort = (ev) => {
+        switch (ev.target.value) {
+            case "0-50":
+                sortByPrice(0, 50);
+                break;
+            case "50-100":
+                sortByPrice(50, 100);
+                break;
+            case "100-150":
+                sortByPrice(100, 150);
+                break;
+            case "150-200":
+                sortByPrice(150, 200);
+                break;
+            case "200+":
+                sortByPrice(200, 0);
+                break;
+            default:
+                getProducts();
+                setProducts(unsortedProducts);
+        }
+    }
+
+    const handleRangeFilter = () => {
+        sortByPrice(0, priceRangeFilter, false);
+    }
+
+    const handleClickSearchButton = () => {
+        console.log(`Search Clicked with ${searchTerm} as the search term`);
+        if (searchTerm === "") setProducts(unsortedProducts);
+        else sortBySearchTerm();
+    }
+
+    const sortByPriceDirection = (asc) => {
+        const unsorted = JSON.parse(JSON.stringify(products));
+        const sortedProducts = unsorted.sort((productA, productB) => {
+            return (asc
+                ? productA.price - productB.price
+                : productB.price - productA.price
+            )
+        })
+        setProducts(sortedProducts);
+    }
+
+    const sortByPrice = (lowPrice, highPrice, allProducts = true) => {
+        const unsorted = allProducts
+            ? JSON.parse(JSON.stringify(unsortedProducts))
+            : JSON.parse(JSON.stringify(products));
+        let sortedProducts;
+        if (highPrice === 0) {
+            sortedProducts = unsorted.filter(product => parseFloat(product.price) >= lowPrice)
+        } else {
+            sortedProducts = unsorted.filter(product => {
+                return parseFloat(product.price) >= lowPrice && parseFloat(product.price) <= highPrice
+            })
+        }
+        setProducts(sortedProducts);
+    }
+
+    const sortBySearchTerm = () => {
+        const unsorted = JSON.parse(JSON.stringify(unsortedProducts));
+        const lowerSearchTerm = searchTerm.toLowerCase();
+        const sortedProducts = unsorted.filter(product => {
+            if (product.name.toLowerCase().includes(lowerSearchTerm)) return product;
+            else if(product.about.toLowerCase().includes(lowerSearchTerm)) return product;
+            else if(product.tags.reduce((tagHolder, tag) => tagHolder + tag)
+                .toLowerCase().includes(lowerSearchTerm)) return product;
+        })
+        setProducts(sortedProducts);
+    }
+
     return (
         <section className="bgwhite p-t-55 p-b-65">
             <div className="container">
@@ -56,19 +159,25 @@ const Content = () => {
                                 </div>
 
                                 <div className="wra-filter-bar">
-                                    <input type="range" />
+                                    <input 
+                                        type="range" 
+                                        min={(priceRange[0] * monetaryModifier).toFixed(2)}
+                                        max={((priceRange[1] * monetaryModifier).toFixed(2) + 10.0)}
+                                        onChange={(ev) => setPriceRangeFilter(ev.target.value)}
+                                    />
                                 </div>
 
                                 <div className="flex-sb-m flex-w p-t-16">
                                     <div className="w-size11">
                                         {/*<!-- Button -->*/}
-                                        <button className="flex-c-m size4 bg7 bo-rad-15 hov1 s-text14 trans-0-4">
+                                        <button className="flex-c-m size4 bg7 bo-rad-15 hov1 s-text14 trans-0-4" onClick={handleRangeFilter}>
                                             Filter
                                         </button>
                                     </div>
 
                                     <div className="s-text3 p-t-10 p-b-10">
-                                        Range: $<span id="value-lower">610</span> - $<span id="value-upper">980</span>
+                                        Range: <span id="value-lower">{(priceRange[0] * monetaryModifier).toFixed(2)}</span> - 
+                                        <span id="value-upper">{(priceRange[1] * monetaryModifier).toFixed(2)}</span>
                                     </div>
                                 </div>
                             </div>
@@ -117,9 +226,16 @@ const Content = () => {
                             </div>
 
                             <div className="search-product pos-relative bo4 of-hidden">
-                                <input className="s-text7 size6 p-l-23 p-r-50" type="text" name="search-product" placeholder="Search Products..." />
+                                <input 
+                                    className="s-text7 size6 p-l-23 p-r-50" 
+                                    type="text" 
+                                    name="search-product" 
+                                    placeholder="Search Products..."
+                                    value={searchTerm}
+                                    onChange={(ev) => setSearchTerm(ev.target.value)}
+                                />
 
-                                <button className="flex-c-m size5 ab-r-m color2 color0-hov trans-0-4">
+                                <button className="flex-c-m size5 ab-r-m color2 color0-hov trans-0-4" onClick={handleClickSearchButton}>
                                     <i className="fs-12 fa fa-search" aria-hidden="true"></i>
                                 </button>
                             </div>
@@ -131,34 +247,40 @@ const Content = () => {
                         <div className="flex-sb-m flex-w p-b-35">
                             <div className="flex-w">
                                 <div className="rs2-select2 bo4 of-hidden w-size12 m-t-5 m-b-5 m-r-10">
-                                    <select className="selection-2" name="sorting">
-                                        <option>Default Sorting</option>
-                                        <option>Popularity</option>
-                                        <option>Price: low to high</option>
-                                        <option>Price: high to low</option>
+                                    <select className="selection-2" name="sorting" onChange={handleOptionSort}>
+                                        <option value="def">Default Sorting</option>
+                                        <option value="pop">Popularity</option>
+                                        <option value="asc">Price: low to high</option>
+                                        <option value="desc">Price: high to low</option>
                                     </select>
                                 </div>
 
                                 <div className="rs2-select2 bo4 of-hidden w-size12 m-t-5 m-b-5 m-r-10">
-                                    <select className="selection-2" name="sorting">
+                                    <select className="selection-2" name="sorting" onChange={handlePriceSort}>
                                         <option>Price</option>
-                                        <option>$0.00 - $50.00</option>
-                                        <option>$50.00 - $100.00</option>
-                                        <option>$100.00 - $150.00</option>
-                                        <option>$150.00 - $200.00</option>
-                                        <option>$200.00+</option>
+                                        <option value="0-50">$0.00 - $50.00</option>
+                                        <option value="50-100">$50.00 - $100.00</option>
+                                        <option value="100-150">$100.00 - $150.00</option>
+                                        <option value="150-200">$150.00 - $200.00</option>
+                                        <option value="200+">$200.00+</option>
 
                                     </select>
                                 </div>
                             </div>
 
                             <span className="s-text8 p-t-5 p-b-5">
-                                Showing 1–12 of 16 results
+                                Showing 1–{!products ? 0 : products.length > 12 ? 12 : products.length} of {products && products.length} results
                             </span>
                         </div>
 
                         {/*<!-- Products -->*/}
-                        <Product />
+                        <div className="row">
+                            {products && products.map(product => <Product
+                                key={product.guid}
+                                product={product}
+                                monetaryModifier={monetaryModifier}
+                            />)}
+                        </div>
 
                         {/*<!-- Pagination -->*/}
                         <div className="pagination flex-m flex-w p-t-26">

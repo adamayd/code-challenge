@@ -1,30 +1,28 @@
 import React, { useState, useEffect } from 'react';
+import Head from 'next/head';
 import Header from '../components/header';
 import Breadcrumbs from '../components/breadcrumbs';
 import Detail from '../components/detail';
 import RelatedProducts from '../components/related_products';
 import Footer from '../components/footer';
 
-const HomePage = ({ productId = 0 }) => {
+const ProductDetailPage = ({ guid }) => {
 
     const [singleProduct, setSingleProduct] = useState();
+    const [monetaryModifier, setMonetaryModifier] = useState(1.0);
     const API_URL = 'http://localhost:5555/api/getsingle/';
 
     useEffect(() => {
-        console.log("before the render in detail");
         getSingleProduct();
     },[])
 
     const getSingleProduct = async () => {
-        // fetch
         const response = await fetchSingleProduct();
-        console.log(response);
         setSingleProduct(response);
-        // format
     }
 
     const fetchSingleProduct = async () => {
-        return await fetch(`${API_URL}${productId}`, {})
+        return await fetch(`${API_URL}${guid}`, {})
             .then(response => {
                 if (!response.ok) {
                     throw (`Server has returned a response of ${response.status}`);
@@ -35,15 +33,31 @@ const HomePage = ({ productId = 0 }) => {
                 console.log(error);
             })
     }
+
+    const monetaryUnit = (ev) => {
+        switch(ev.target.value) {
+            case "eur":
+                setMonetaryModifier(0.91);
+                break;
+            default: 
+                setMonetaryModifier(1.0);
+        }    
+    }
+
     return (
         <>
-            <Header/>
-            <Breadcrumbs/>
-            <Detail singleProduct={singleProduct}/>
+            <Head><title>Product Detail</title></Head>
+            <Header monetaryUnit={monetaryUnit} />
+            {singleProduct && <Breadcrumbs crumb={singleProduct.name} />}
+            {singleProduct && <Detail singleProduct={singleProduct} monetaryModifier={monetaryModifier} />}
             <RelatedProducts/>
             <Footer />
         </>
     )
 }
 
-export default HomePage
+ProductDetailPage.getInitialProps = async ({ query }) => {
+  return { guid: query.guid };
+};
+
+export default ProductDetailPage
