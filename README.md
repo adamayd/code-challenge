@@ -6,11 +6,15 @@ The original README.md is now [INSTRUCTIONS.md](./INSTRUCTIONS.md)
 
 This project is setup with a separate API server in the `api` directory and a separate web server in the `web` directory.  Start by running 
 
-```yarn```
+```
+yarn
+```
 
 or 
 
-```npm install```
+```
+npm install
+```
 
 in each respective library to pull down the project dependencies.  
 
