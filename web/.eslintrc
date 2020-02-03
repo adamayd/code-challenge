@@ -1,0 +1,15 @@
+{
+    "env": {
+        "es6": true,
+        "browser": true
+    },
+    "extends": [
+        "airbnb",
+        "plugin:react/recommended"
+    ],
+    "rules": {
+        "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+        "no-console": ["error", { "allow": ["warn", "error"] }],
+        "comma-dangle": ["error", "never"]
+      }
+}
