@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const Header = ({ monetaryUnit }) => (
   <header className="header1">
@@ -6,11 +7,11 @@ const Header = ({ monetaryUnit }) => (
     <div className="container-menu-header">
       <div className="topbar">
         <div className="topbar-social">
-          <a href="#" className="topbar-social-item fa fa-facebook"></a>
-          <a href="#" className="topbar-social-item fa fa-instagram"></a>
-          <a href="#" className="topbar-social-item fa fa-pinterest-p"></a>
-          <a href="#" className="topbar-social-item fa fa-snapchat-ghost"></a>
-          <a href="#" className="topbar-social-item fa fa-youtube-play"></a>
+          <a href="#" className="topbar-social-item fa fa-facebook" />
+          <a href="#" className="topbar-social-item fa fa-instagram" />
+          <a href="#" className="topbar-social-item fa fa-pinterest-p" />
+          <a href="#" className="topbar-social-item fa fa-snapchat-ghost" />
+          <a href="#" className="topbar-social-item fa fa-youtube-play" />
         </div>
 
         <span className="topbar-child1">
@@ -83,7 +84,7 @@ const Header = ({ monetaryUnit }) => (
             <img src="images/icons/icon-header-01.png" className="header-icon1" alt="ICON" />
           </a>
 
-          <span className="linedivide1"></span>
+          <span className="linedivide1" />
 
           <div className="header-wrapicon2">
             <img src="images/icons/icon-header-02.png" className="header-icon1 js-show-header-dropdown" alt="ICON" />
@@ -181,7 +182,7 @@ const Header = ({ monetaryUnit }) => (
             <img src="images/icons/icon-header-01.png" className="header-icon1" alt="ICON" />
           </a>
 
-          <span className="linedivide2"></span>
+          <span className="linedivide2" />
 
           <div className="header-wrapicon2">
             <img src="images/icons/icon-header-02.png" className="header-icon1 js-show-header-dropdown" alt="ICON" />
@@ -264,7 +265,7 @@ const Header = ({ monetaryUnit }) => (
 
         <div className="btn-show-menu-mobile hamburger hamburger--squeeze">
           <span className="hamburger-box">
-            <span className="hamburger-inner"></span>
+            <span className="hamburger-inner" />
           </span>
         </div>
       </div>
@@ -297,11 +298,11 @@ const Header = ({ monetaryUnit }) => (
 
           <li className="item-topbar-mobile p-l-10">
             <div className="topbar-social-mobile">
-              <a href="#" className="topbar-social-item fa fa-facebook"></a>
-              <a href="#" className="topbar-social-item fa fa-instagram"></a>
-              <a href="#" className="topbar-social-item fa fa-pinterest-p"></a>
-              <a href="#" className="topbar-social-item fa fa-snapchat-ghost"></a>
-              <a href="#" className="topbar-social-item fa fa-youtube-play"></a>
+              <a href="#" className="topbar-social-item fa fa-facebook" />
+              <a href="#" className="topbar-social-item fa fa-instagram" />
+              <a href="#" className="topbar-social-item fa fa-pinterest-p" />
+              <a href="#" className="topbar-social-item fa fa-snapchat-ghost" />
+              <a href="#" className="topbar-social-item fa fa-youtube-play" />
             </div>
           </li>
 
@@ -312,7 +313,7 @@ const Header = ({ monetaryUnit }) => (
               <li><a href="home-02.html">Homepage V2</a></li>
               <li><a href="home-03.html">Homepage V3</a></li>
             </ul>
-            <i className="arrow-main-menu fa fa-angle-right" aria-hidden="true"></i>
+            <i className="arrow-main-menu fa fa-angle-right" aria-hidden="true" />
           </li>
 
           <li className="item-menu-mobile">
@@ -343,5 +344,9 @@ const Header = ({ monetaryUnit }) => (
     </div>
   </header>
 );
+
+Header.propTypes = {
+  monetaryUnit: PropTypes.func.isRequired
+};
 
 export default Header;

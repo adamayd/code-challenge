@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import Product from './product';
 
 const Content = ({ unsortedProducts, getProducts, monetaryModifier }) => {
@@ -37,12 +38,11 @@ const Content = ({ unsortedProducts, getProducts, monetaryModifier }) => {
   const sortBySearchTerm = () => {
     const unsorted = JSON.parse(JSON.stringify(unsortedProducts));
     const lowerSearchTerm = searchTerm.toLowerCase();
-    const sortedProducts = unsorted.filter((product) => {
-      if (product.name.toLowerCase().includes(lowerSearchTerm)) return product;
-      if (product.about.toLowerCase().includes(lowerSearchTerm)) return product;
-      if (product.tags.reduce((tagHolder, tag) => tagHolder + tag)
-        .toLowerCase().includes(lowerSearchTerm)) return product;
-    });
+    const sortedProducts = unsorted.filter((product) => ((product.name.toLowerCase().includes(lowerSearchTerm))
+      || (product.about.toLowerCase().includes(lowerSearchTerm))
+      || (product.tags.reduce((tagHolder, tag) => tagHolder + tag)
+        .toLowerCase().includes(lowerSearchTerm))
+    ));
     setProducts(sortedProducts);
   };
 
@@ -96,7 +96,7 @@ const Content = ({ unsortedProducts, getProducts, monetaryModifier }) => {
   };
 
   const handleClickSearchButton = () => {
-    if (searchTerm === "") setProducts(unsortedProducts);
+    if (searchTerm === '') setProducts(unsortedProducts);
     else sortBySearchTerm();
   };
 
@@ -165,13 +165,15 @@ const Content = ({ unsortedProducts, getProducts, monetaryModifier }) => {
                 <div className="flex-sb-m flex-w p-t-16">
                   <div className="w-size11">
                     {/* <!-- Button --> */}
-                    <button className="flex-c-m size4 bg7 bo-rad-15 hov1 s-text14 trans-0-4" onClick={handleRangeFilter}>
+                    <button className="flex-c-m size4 bg7 bo-rad-15 hov1 s-text14 trans-0-4" type="button" onClick={handleRangeFilter}>
                       Filter
                     </button>
                   </div>
 
                   <div className="s-text3 p-t-10 p-b-10">
-                    Range: <span id="value-lower">{(priceRange[0] * monetaryModifier).toFixed(2)}</span> -
+                    {'Range: '}
+                    <span id="value-lower">{(priceRange[0] * monetaryModifier).toFixed(2)}</span>
+                    {' - '}
                     <span id="value-upper">{(priceRange[1] * monetaryModifier).toFixed(2)}</span>
                   </div>
                 </div>
@@ -184,38 +186,45 @@ const Content = ({ unsortedProducts, getProducts, monetaryModifier }) => {
 
                 <ul className="flex-w">
                   <li className="m-r-10">
-                    <input className="checkbox-color-filter" id="color-filter1" type="checkbox" name="color-filter1" />
-                    <label className="color-filter color-filter1" htmlFor="color-filter1"></label>
+                    <label className="color-filter color-filter1" htmlFor="color-filter1">
+                      <input className="checkbox-color-filter" id="color-filter1" type="checkbox" name="color-filter1" />
+                    </label>
                   </li>
 
                   <li className="m-r-10">
-                    <input className="checkbox-color-filter" id="color-filter2" type="checkbox" name="color-filter2" />
-                    <label className="color-filter color-filter2" htmlFor="color-filter2"></label>
+                    <label className="color-filter color-filter2" htmlFor="color-filter2">
+                      <input className="checkbox-color-filter" id="color-filter2" type="checkbox" name="color-filter2" />
+                    </label>
                   </li>
 
                   <li className="m-r-10">
-                    <input className="checkbox-color-filter" id="color-filter3" type="checkbox" name="color-filter3" />
-                    <label className="color-filter color-filter3" htmlFor="color-filter3"></label>
+                    <label className="color-filter color-filter3" htmlFor="color-filter3">
+                      <input className="checkbox-color-filter" id="color-filter3" type="checkbox" name="color-filter3" />
+                    </label>
                   </li>
 
                   <li className="m-r-10">
-                    <input className="checkbox-color-filter" id="color-filter4" type="checkbox" name="color-filter4" />
-                    <label className="color-filter color-filter4" htmlFor="color-filter4"></label>
+                    <label className="color-filter color-filter4" htmlFor="color-filter4">
+                      <input className="checkbox-color-filter" id="color-filter4" type="checkbox" name="color-filter4" />
+                    </label>
                   </li>
 
                   <li className="m-r-10">
-                    <input className="checkbox-color-filter" id="color-filter5" type="checkbox" name="color-filter5" />
-                    <label className="color-filter color-filter5" htmlFor="color-filter5"></label>
+                    <label className="color-filter color-filter5" htmlFor="color-filter5">
+                      <input className="checkbox-color-filter" id="color-filter5" type="checkbox" name="color-filter5" />
+                    </label>
                   </li>
 
                   <li className="m-r-10">
-                    <input className="checkbox-color-filter" id="color-filter6" type="checkbox" name="color-filter6" />
-                    <label className="color-filter color-filter6" htmlFor="color-filter6"></label>
+                    <label className="color-filter color-filter6" htmlFor="color-filter6">
+                      <input className="checkbox-color-filter" id="color-filter6" type="checkbox" name="color-filter6" />
+                    </label>
                   </li>
 
                   <li className="m-r-10">
-                    <input className="checkbox-color-filter" id="color-filter7" type="checkbox" name="color-filter7" />
-                    <label className="color-filter color-filter7" htmlFor="color-filter7"></label>
+                    <label className="color-filter color-filter7" htmlFor="color-filter7">
+                      <input className="checkbox-color-filter" id="color-filter7" type="checkbox" name="color-filter7" />
+                    </label>
                   </li>
                 </ul>
               </div>
@@ -230,8 +239,8 @@ const Content = ({ unsortedProducts, getProducts, monetaryModifier }) => {
                   onChange={(ev) => setSearchTerm(ev.target.value)}
                 />
 
-                <button className="flex-c-m size5 ab-r-m color2 color0-hov trans-0-4" onClick={handleClickSearchButton}>
-                  <i className="fs-12 fa fa-search" aria-hidden="true"></i>
+                <button className="flex-c-m size5 ab-r-m color2 color0-hov trans-0-4" type="button" onClick={handleClickSearchButton}>
+                  <i className="fs-12 fa fa-search" aria-hidden="true" />
                 </button>
               </div>
             </div>
@@ -264,7 +273,7 @@ const Content = ({ unsortedProducts, getProducts, monetaryModifier }) => {
               </div>
 
               <span className="s-text8 p-t-5 p-b-5">
-                {`Showing 1–${!products ? 0 : products.length > 12 ? 12 : products.length} of ${products && products.length} results`}
+                {`Showing 1–${products && products.length > 12 ? 12 : products.length} of ${products && products.length} results`}
               </span>
             </div>
 
@@ -290,6 +299,12 @@ const Content = ({ unsortedProducts, getProducts, monetaryModifier }) => {
     </section>
 
   );
+};
+
+Content.propTypes = {
+  unsortedProducts: PropTypes.arrayOf(PropTypes.shape).isRequired,
+  monetaryModifier: PropTypes.number.isRequired,
+  getProducts: PropTypes.func.isRequired
 };
 
 export default Content;

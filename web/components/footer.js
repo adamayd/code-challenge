@@ -14,11 +14,11 @@ const Footer = () => (
           </p>
 
           <div className="flex-m p-t-30">
-            <a href="#" className="fs-18 color1 p-r-20 fa fa-facebook"></a>
-            <a href="#" className="fs-18 color1 p-r-20 fa fa-instagram"></a>
-            <a href="#" className="fs-18 color1 p-r-20 fa fa-pinterest-p"></a>
-            <a href="#" className="fs-18 color1 p-r-20 fa fa-snapchat-ghost"></a>
-            <a href="#" className="fs-18 color1 p-r-20 fa fa-youtube-play"></a>
+            <a href="#" className="fs-18 color1 p-r-20 fa fa-facebook" />
+            <a href="#" className="fs-18 color1 p-r-20 fa fa-instagram" />
+            <a href="#" className="fs-18 color1 p-r-20 fa fa-pinterest-p" />
+            <a href="#" className="fs-18 color1 p-r-20 fa fa-snapchat-ghost" />
+            <a href="#" className="fs-18 color1 p-r-20 fa fa-youtube-play" />
           </div>
         </div>
       </div>
@@ -127,12 +127,12 @@ const Footer = () => (
         <form>
           <div className="effect1 w-size9">
             <input className="s-text7 bg6 w-full p-b-5" type="text" name="email" placeholder="email@example.com" />
-            <span className="effect1-line"></span>
+            <span className="effect1-line" />
           </div>
 
           <div className="w-size2 p-t-20">
             {/* <!-- Button --> */}
-            <button className="flex-c-m size2 bg4 bo-rad-23 hov1 m-text3 trans-0-4">
+            <button className="flex-c-m size2 bg4 bo-rad-23 hov1 m-text3 trans-0-4" type="submit">
               Subscribe
             </button>
           </div>
@@ -163,7 +163,10 @@ const Footer = () => (
       </a>
 
       <div className="t-center s-text8 p-t-20">
-        Copyright © 2018 All rights reserved. | This template is made with <i className="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+        {'Copyright © 2018 All rights reserved. | This template is made with '}
+        <i className="fa fa-heart-o" aria-hidden="true" />
+        {' by '}
+        <a href="https://colorlib.com" target="_blank" rel="noopener noreferrer">Colorlib</a>
       </div>
     </div>
   </footer>
