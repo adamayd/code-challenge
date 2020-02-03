@@ -1,3 +1,6 @@
+/* eslint-disable react/jsx-props-no-spreading */
+/* eslint-disable react/react-in-jsx-scope */
+/* eslint-disable react/prop-types */
 import '../public/vendor/bootstrap/css/bootstrap.css';
 import '../public/fonts/font-awesome-4.7.0/css/font-awesome.min.css';
 import '../public/fonts/themify/themify-icons.css';
@@ -8,5 +11,5 @@ import '../public/css/main.css';
 
 // This default export is required in a new `pages/_app.js` file.
 export default function MyApp({ Component, pageProps }) {
-    return <Component {...pageProps} />
+  return <Component {...pageProps} />;
 }
